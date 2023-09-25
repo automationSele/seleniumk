@@ -16,6 +16,17 @@ import java.util.Map;
 
 public class SeleniumFunctions {
     public static WebDriver createDriver(String browserName, boolean headless) {
+        String GUITestCasesProjectPath = System.getProperty("user.dir");
+        BaseClass.driverPath = GUITestCasesProjectPath+"/src/test/java/resources/seleniumDrivers";
+        if((System.getProperty("os.name").toLowerCase()).contains("window"))
+        {
+            BaseClass.driverPath = BaseClass.driverPath+"/"+"chromedriver_win.exe";
+        }
+        else if((System.getProperty("os.name").toLowerCase()).contains("mac"))
+        {
+            BaseClass.driverPath = BaseClass.driverPath+"/"+"chromedriver_mac";
+        }
+
         WebDriver driverObj;
         if (browserName.equalsIgnoreCase("Firefox")) {
             FirefoxOptions firefoxOptions = new FirefoxOptions();
@@ -50,7 +61,7 @@ public class SeleniumFunctions {
             chromeOptions.addArguments("--disable-notifications");
             chromeOptions.addArguments("--incognito");
             System.out.println("The path of the driver is: " + BaseClass.driverPath);
-            System.setProperty("webdriver.chrome.driver", "D:\\work\\github\\seleniumk\\src\\test\\java\\resources\\seleniumDrivers\\chromedriver_win.exe");
+            System.setProperty("webdriver.chrome.driver",  BaseClass.driverPath);
 
             driverObj = new ChromeDriver(chromeOptions);
 //            try {
